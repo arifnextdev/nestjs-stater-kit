@@ -58,7 +58,7 @@
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.1",
-    "pino-http": "^10.3.0",
+    "pino-http": "^11.0.0",
     "pino-pretty": "^13.0.0",
     "prisma": "^6.18.0",
     "reflect-metadata": "^0.2.2",
