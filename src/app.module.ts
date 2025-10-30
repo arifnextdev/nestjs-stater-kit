@@ -13,6 +13,7 @@ import { HealthModule } from './health/health.module';
 import { AllExceptionsFilter } from './common/exceptions/http-exception.filter';
 import { ResponseTransformInterceptor } from './common/interceptors/response-transform.interceptor';
 import { BlogModule } from './blog/blog.module';
+import { AdminModule } from './admin/admin.module';
 import { BullModule } from '@nestjs/bullmq';
 import { redisConfig } from './config/redis.config';
 import { QUEUES } from './queues/queue.constants';
@@ -88,6 +89,7 @@ import { QUEUES } from './queues/queue.constants';
     CommonModule,
     HealthModule,
     BlogModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [
