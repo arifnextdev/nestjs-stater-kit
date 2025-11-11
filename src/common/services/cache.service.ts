@@ -80,4 +80,23 @@ export class CacheService {
     await this.set(key, value, ttl);
     return value;
   }
+
+  async clear(): Promise<void> {
+    try {
+      await this.redis.flushdb();
+      this.logger.log('Cache cleared successfully');
+    } catch (error) {
+      this.logger.error('Cache clear error:', error);
+      throw error;
+    }
+  }
+
+  async ping(): Promise<string> {
+    try {
+      return await this.redis.ping();
+    } catch (error) {
+      this.logger.error('Redis ping error:', error);
+      throw error;
+    }
+  }
 }

@@ -23,7 +23,7 @@ import { AdminSystemService } from '../services/admin-system.service';
 @ApiBearerAuth('JWT-auth')
 @Controller('admin/system')
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Roles('SUPER_ADMIN')
+@Roles('ADMIN', 'SUPER_ADMIN')
 export class AdminSystemController {
   constructor(private readonly adminSystemService: AdminSystemService) {}
 

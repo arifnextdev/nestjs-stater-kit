@@ -48,6 +48,7 @@ model User {
   notificationSettings NotificationSettings?
   notifications        Notification[]
   blogs                Blog[]
+  auditLogs            AuditLog[]
 
   // Indexes
   @@index([email])
@@ -265,6 +266,8 @@ model AuditLog {
   userAgent String? @db.Text
 
   createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   // Indexes for audit queries
   @@index([userId])
