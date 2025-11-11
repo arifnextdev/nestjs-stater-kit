@@ -47,8 +47,9 @@ export class AuthService {
     return {
       httpOnly: true,
       secure: isProduction,
-      domain: cookieDomain || (isProduction ? undefined : 'localhost'),
-      sameSite: 'lax',
+      domain: cookieDomain || undefined,
+      sameSite: isProduction ? 'none' : 'lax',
+      path: '/',
       ...(maxAge && { maxAge }),
     };
   }
@@ -581,13 +582,13 @@ export class AuthService {
     });
 
     const ADMIN = user.roles.find((role) => role.role.name === 'ADMIN');
-    const SELLER = user.roles.find((role) => role.role.name === 'SELLER');
+    const USER = user.roles.find((role) => role.role.name === 'USER');
 
     const redirect = ADMIN
-      ? '/admin/dashboard'
-      : SELLER && user.isEmailVerified === true
-        ? '/dashboard'
-        : '/dashboard';
+      ? '/dashboard/admin'
+      : USER && user.isEmailVerified === true
+        ? `/users/${user.id}`
+        : '/';
 
     return {
       status: true,
