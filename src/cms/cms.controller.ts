@@ -212,6 +212,136 @@ export class CmsController {
     };
   }
 
+  // ==================== File Upload Endpoints ====================
+
+  /**
+   * Upload logo image
+   */
+  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+  @Permissions('admin.settings.update')
+  @Post('upload/logo')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadLogo(@UploadedFile() file: Express.Multer.File) {
+    if (!file) {
+      throw new BadRequestException('No file uploaded');
+    }
+
+    // Validate file type
+    const allowedTypes = [
+      'image/jpeg',
+      'image/jpg',
+      'image/png',
+      'image/webp',
+      'image/svg+xml',
+    ];
+    if (!allowedTypes.includes(file.mimetype)) {
+      throw new BadRequestException(
+        'Invalid file type. Only JPEG, PNG, WebP, and SVG are allowed',
+      );
+    }
+
+    // Validate file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      throw new BadRequestException('File size exceeds 5MB limit');
+    }
+
+    const result = await this.uploadService.uploadFile(file, 'cms/logos');
+    const fileUrl = result.Location || `${process.env.APP_URL}/${result.Key}`;
+
+    return {
+      status: true,
+      data: {
+        url: fileUrl,
+        key: result.Key,
+      },
+      message: 'Logo uploaded successfully',
+    };
+  }
+
+  /**
+   * Upload favicon image
+   */
+  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+  @Permissions('admin.settings.update')
+  @Post('upload/favicon')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFavicon(@UploadedFile() file: Express.Multer.File) {
+    if (!file) {
+      throw new BadRequestException('No file uploaded');
+    }
+
+    // Validate file type
+    const allowedTypes = [
+      'image/x-icon',
+      'image/vnd.microsoft.icon',
+      'image/png',
+      'image/svg+xml',
+    ];
+    if (!allowedTypes.includes(file.mimetype)) {
+      throw new BadRequestException(
+        'Invalid file type. Only ICO, PNG, and SVG are allowed for favicon',
+      );
+    }
+
+    // Validate file size (max 1MB)
+    const maxSize = 1 * 1024 * 1024;
+    if (file.size > maxSize) {
+      throw new BadRequestException('File size exceeds 1MB limit');
+    }
+
+    const result = await this.uploadService.uploadFile(file, 'cms/favicons');
+    const fileUrl = result.Location || `${process.env.APP_URL}/${result.Key}`;
+
+    return {
+      status: true,
+      data: {
+        url: fileUrl,
+        key: result.Key,
+      },
+      message: 'Favicon uploaded successfully',
+    };
+  }
+
+  /**
+   * Upload OG/Twitter image
+   */
+  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+  @Permissions('admin.settings.update')
+  @Post('upload/seo-image')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadSeoImage(@UploadedFile() file: Express.Multer.File) {
+    if (!file) {
+      throw new BadRequestException('No file uploaded');
+    }
+
+    // Validate file type
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    if (!allowedTypes.includes(file.mimetype)) {
+      throw new BadRequestException(
+        'Invalid file type. Only JPEG, PNG, and WebP are allowed',
+      );
+    }
+
+    // Validate file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      throw new BadRequestException('File size exceeds 5MB limit');
+    }
+
+    const result = await this.uploadService.uploadFile(file, 'cms/seo-images');
+    const fileUrl = result.Location || `${process.env.APP_URL}/${result.Key}`;
+
+    return {
+      status: true,
+      data: {
+        url: fileUrl,
+        key: result.Key,
+      },
+      message: 'SEO image uploaded successfully',
+    };
+  }
+
   // ==================== Sitemap Endpoints ====================
 
   /**
