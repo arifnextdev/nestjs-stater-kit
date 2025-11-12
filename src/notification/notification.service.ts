@@ -143,7 +143,7 @@ export class NotificationService {
 
     const parseResult = NotificationQuerySchema.safeParse(query);
     if (!parseResult.success) {
-      throw new NotAcceptableException(parseResult.error.errors);
+      throw new NotAcceptableException(parseResult.error);
     }
 
     const { cursor, limit = '10' } = parseResult.data;
@@ -172,7 +172,7 @@ export class NotificationService {
   async sendNotification(id: string, data: any) {
     const parseResult = notificationSchema.safeParse(data);
     if (!parseResult.success) {
-      throw new NotAcceptableException(parseResult.error.errors);
+      throw new NotAcceptableException(parseResult.error);
     }
 
     if (

@@ -22,7 +22,7 @@ export class CategoryService {
     const parsebody = createCategorySchema.safeParse(data);
 
     if (!parsebody.success) {
-      throw new NotAcceptableException(parsebody.error.errors);
+      throw new NotAcceptableException(parsebody.error);
     }
 
     const exists = await this.prisma.category.findUnique({
@@ -76,7 +76,7 @@ export class CategoryService {
     const parsebody = updateCategorySchema.safeParse(data);
 
     if (!parsebody.success) {
-      throw new NotAcceptableException(parsebody.error.errors);
+      throw new NotAcceptableException(parsebody.error);
     }
 
     const category = await this.prisma.category.findUnique({ where: { id } });
@@ -152,7 +152,7 @@ export class CategoryService {
     const parsebody = queryCategorySchema.safeParse(query);
 
     if (!parsebody.success) {
-      throw new NotAcceptableException(parsebody.error.errors);
+      throw new NotAcceptableException(parsebody.error);
     }
 
     const {

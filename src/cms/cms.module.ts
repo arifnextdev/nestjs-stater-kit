@@ -6,6 +6,7 @@ import { SettingsService } from './services/settings.service';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { UploadModule } from 'src/upload/upload.module';
+import { CacheModule } from '@nestjs/cache-manager';
 import { HeroService } from './services/hero.service';
 import { BannerService } from './services/banner.service';
 import { HeroPublicController } from './hero.controller';
@@ -15,7 +16,12 @@ import { TestimonialPublicController } from './testimonial.controller';
 import { CmsPublicController } from './public.controller';
 
 @Module({
-  imports: [PrismaModule, ConfigModule, UploadModule],
+  imports: [
+    PrismaModule,
+    ConfigModule,
+    UploadModule,
+    CacheModule.register({ ttl: 60 }),
+  ],
   controllers: [
     HeroPublicController,
     BannerPublicController,

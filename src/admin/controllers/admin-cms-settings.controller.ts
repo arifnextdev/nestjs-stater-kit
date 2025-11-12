@@ -1,42 +1,35 @@
 import {
-  BadRequestException,
   Body,
   Controller,
+  FileTypeValidator,
   Get,
-  Header,
-  HttpCode,
-  HttpStatus,
-  Param,
+  MaxFileSizeValidator,
+  NotAcceptableException,
+  ParseFilePipe,
   Post,
   Put,
   Query,
   Request,
-  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
-  ParseFilePipe,
-  MaxFileSizeValidator,
-  FileTypeValidator,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Permissions } from 'src/common/decorators/permissions.decorator';
-import { PermissionsGuard } from 'src/common/guards/permissions.guard';
-import { SeoService } from 'src/cms/services/seo.service';
-import { DashboardService } from 'src/cms/services/dashboard.service';
-import { SettingsService } from 'src/cms/services/settings.service';
-import { UploadService } from 'src/upload/upload.service';
-import { UpdateSiteSettingsDto } from 'src/cms/dto/site-settings.dto';
-import { UpdateSEOSettingsDto } from 'src/cms/dto/seo-settings.dto';
-import { Response } from 'express';
 import {
   AnalyticsQueryDto,
   analyticsQuerySchema,
   TrafficSourcesQueryDto,
   trafficSourcesQuerySchema,
 } from 'src/cms/dto/analytics.dto';
-import { NotAcceptableException } from '@nestjs/common';
+import { UpdateSEOSettingsDto } from 'src/cms/dto/seo-settings.dto';
+import { UpdateSiteSettingsDto } from 'src/cms/dto/site-settings.dto';
+import { DashboardService } from 'src/cms/services/dashboard.service';
+import { SeoService } from 'src/cms/services/seo.service';
+import { SettingsService } from 'src/cms/services/settings.service';
+import { Permissions } from 'src/common/decorators/permissions.decorator';
+import { PermissionsGuard } from 'src/common/guards/permissions.guard';
+import { UploadService } from 'src/upload/upload.service';
 
 @UseGuards(AuthGuard('jwt'), PermissionsGuard)
 @Controller('admin/cms')
@@ -59,7 +52,7 @@ export class AdminCmsSettingsController {
   @Get('dashboard/analytics')
   async getAnalytics(@Query() query: AnalyticsQueryDto) {
     const parsed = analyticsQuerySchema.safeParse(query);
-    if (!parsed.success) throw new NotAcceptableException(parsed.error.errors);
+    if (!parsed.success) throw new NotAcceptableException(parsed.error);
     return this.dashboardService.getAnalytics(
       parsed.data.startDate,
       parsed.data.endDate,
@@ -70,7 +63,7 @@ export class AdminCmsSettingsController {
   @Get('dashboard/traffic-sources')
   async getTrafficSources(@Query() query: TrafficSourcesQueryDto) {
     const parsed = trafficSourcesQuerySchema.safeParse(query);
-    if (!parsed.success) throw new NotAcceptableException(parsed.error.errors);
+    if (!parsed.success) throw new NotAcceptableException(parsed.error);
     return this.dashboardService.getTrafficSources(parsed.data.days);
   }
 

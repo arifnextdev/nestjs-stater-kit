@@ -12,7 +12,7 @@ export const trafficSourcesQuerySchema = z.object({
     .string()
     .regex(/^\d+$/, 'Days must be a number')
     .transform((val) => parseInt(val))
-    .default('30')
+    .default(30)
     .optional(),
 });
 

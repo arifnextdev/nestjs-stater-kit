@@ -16,7 +16,7 @@ export class ZodQueryValidationPipe implements PipeTransform {
     if (metadata.type === 'query' || metadata.type === 'body') {
       const result = this.schema.safeParse(value);
       if (!result.success) {
-        throw new BadRequestException(result.error.errors);
+        throw new BadRequestException(result.error);
       }
       return result.data;
     }

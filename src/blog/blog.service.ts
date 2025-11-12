@@ -108,7 +108,7 @@ export class BlogService {
     const parsedBody = createBlogSchema.safeParse(data);
 
     if (!parsedBody.success) {
-      throw new NotAcceptableException(parsedBody.error.errors);
+      throw new NotAcceptableException(parsedBody.error);
     }
 
     // Auto-generate SEO fields
@@ -217,7 +217,7 @@ export class BlogService {
     const parsedBody = updateBlogSchema.safeParse(data);
 
     if (!parsedBody.success) {
-      throw new NotAcceptableException(parsedBody.error.errors);
+      throw new NotAcceptableException(parsedBody.error);
     }
 
     // Check if blog exists
@@ -333,7 +333,7 @@ export class BlogService {
     const parsedQuery = queryBlogSchema.safeParse(query);
 
     if (!parsedQuery.success) {
-      throw new NotAcceptableException(parsedQuery.error.errors);
+      throw new NotAcceptableException(parsedQuery.error);
     }
 
     const {
@@ -468,7 +468,7 @@ export class BlogService {
     const parsedQuery = adminQueryBlogSchema.safeParse(query);
 
     if (!parsedQuery.success) {
-      throw new NotAcceptableException(parsedQuery.error.errors);
+      throw new NotAcceptableException(parsedQuery.error);
     }
 
     const {

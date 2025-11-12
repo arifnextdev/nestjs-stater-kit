@@ -71,7 +71,7 @@ export class CmsController {
   async getAnalytics(@Query() query: AnalyticsQueryDto) {
     const parsed = analyticsQuerySchema.safeParse(query);
     if (!parsed.success) {
-      throw new NotAcceptableException(parsed.error.errors);
+      throw new NotAcceptableException(parsed.error);
     }
     return this.dashboardService.getAnalytics(
       parsed.data.startDate,
@@ -88,7 +88,7 @@ export class CmsController {
   async getTrafficSources(@Query() query: TrafficSourcesQueryDto) {
     const parsed = trafficSourcesQuerySchema.safeParse(query);
     if (!parsed.success) {
-      throw new NotAcceptableException(parsed.error.errors);
+      throw new NotAcceptableException(parsed.error);
     }
     return this.dashboardService.getTrafficSources(parsed.data.days);
   }
