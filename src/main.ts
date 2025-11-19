@@ -13,7 +13,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
   });
-
   // Get config service
   const configService = app.get(ConfigService);
   const port = configService.get<number>('PORT', 8000);
@@ -82,6 +81,7 @@ async function bootstrap() {
       transformOptions: {
         enableImplicitConversion: true, // Allow implicit type conversion
       },
+      stopAtFirstError: true, // Stop validation at the first error
       disableErrorMessages: nodeEnv === 'production', // Hide detailed errors in production
     }),
   );
