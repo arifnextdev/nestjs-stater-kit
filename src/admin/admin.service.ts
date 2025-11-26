@@ -11,7 +11,6 @@ export class AdminService {
         '/admin/users',
         '/admin/blogs',
         '/admin/roles',
-        '/admin/dashboard',
         '/admin/system',
       ],
     };

@@ -36,7 +36,6 @@ export class AdminController {
             '/admin/users',
             '/admin/blogs',
             '/admin/roles',
-            '/admin/dashboard',
             '/admin/system',
           ],
         },

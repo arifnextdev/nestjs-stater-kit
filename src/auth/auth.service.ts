@@ -585,7 +585,7 @@ export class AuthService {
     const USER = user.roles.find((role) => role.role.name === 'USER');
 
     const redirect = ADMIN
-      ? '/dashboard/admin'
+      ? '/admin'
       : USER && user.isEmailVerified === true
         ? `/users/${user.id}`
         : '/';
