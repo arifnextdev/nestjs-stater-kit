@@ -8,7 +8,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 // ==================== User Management ====================
@@ -540,7 +539,7 @@ model SiteSettings {
   createdAt DateTime @default(now())
 
   // Relations
-  updater User?   @relation("SiteSettingsUpdater", fields: [updatedBy], references: [id], onDelete: SetNull)
+  updater User? @relation("SiteSettingsUpdater", fields: [updatedBy], references: [id], onDelete: SetNull)
 
   @@index([updatedAt])
   @@map("site_settings")

@@ -4,8 +4,10 @@ import {
   OnModuleDestroy,
   Logger,
 } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
 import { ConfigService } from '@nestjs/config';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from '@prisma/client';
+import { Pool } from 'pg';
 
 @Injectable()
 export class PrismaService
@@ -17,7 +19,13 @@ export class PrismaService
   constructor(private configService: ConfigService) {
     const isProduction = configService.get('NODE_ENV') === 'production';
 
+    const pool = new Pool({
+      connectionString: configService.get('DATABASE_URL'),
+    });
+    const adapter = new PrismaPg(pool);
+
     super({
+      adapter,
       log: isProduction
         ? ['error', 'warn']
         : ['query', 'info', 'warn', 'error'],
