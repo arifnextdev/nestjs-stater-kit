@@ -5,6 +5,7 @@ import { NotificationController } from './notification.controller';
 import { NotificationGateway } from './notification.gateway';
 import { NotificationProcessor } from './notification.processor';
 import { PrismaModule } from 'src/prisma/prisma.module';
+import { AuthModule } from 'src/auth/auth.module';
 import { BullModule } from '@nestjs/bullmq';
 import { QUEUES } from 'src/queues/queue.constants';
 
@@ -12,6 +13,7 @@ import { QUEUES } from 'src/queues/queue.constants';
   imports: [
     BullModule.registerQueue({ name: QUEUES.NOTIFICATION }),
     PrismaModule,
+    AuthModule,
   ], // PrismaService is provided by PrismaModule
   providers: [
     NotificationProcessor, // 👈 will run inside worker context only
