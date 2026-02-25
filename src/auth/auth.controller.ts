@@ -117,6 +117,7 @@ export class AuthController {
   //verify 2 factor
   @HttpCode(HttpStatus.OK)
   @Post('verify-2fa')
+  @UsePipes(new ZodValidationPipe(verifyOtpSchema))
   verify2fa(
     @Body() dto: VerifyOtpDto,
     @Res({ passthrough: true }) res: Response,
@@ -176,19 +177,12 @@ export class AuthController {
   @Post('/google/verify')
   async verifyGoogle(
     @Body('idToken') idToken: string,
-    @Res() res: Response,
+    @Res({ passthrough: true }) res: Response,
     @Req() req: Request,
   ) {
     const userInfo = await this.authService.verifyGoogleToken(idToken);
     if (!userInfo) throw new UnauthorizedException('User not found');
-    const accessToken = await this.authService.socialLogin(
-      userInfo, // Map this to your user structure
-      'GOOGLE',
-      res,
-      req,
-    );
-
-    return res.json({ token: accessToken });
+    return this.authService.socialLogin(userInfo, 'GOOGLE', res, req);
   }
 
   @Get('google')
@@ -201,14 +195,8 @@ export class AuthController {
     if (!req.user) {
       throw new UnauthorizedException('User not found');
     }
-    const accessToken = await this.authService.socialLogin(
-      req.user,
-      'GOOGLE',
-      res,
-      req,
-    );
-    res.redirect(`${APP_CLIENT_URL}/oauth-callback?token=${accessToken}`);
-    return accessToken;
+    await this.authService.socialLogin(req.user, 'GOOGLE', res, req);
+    res.redirect(`${APP_CLIENT_URL}/oauth-callback`);
   }
 
   @Get('facebook')
@@ -224,11 +212,7 @@ export class AuthController {
     if (!req.user) {
       throw new UnauthorizedException('User not found');
     }
-    const accessToken = await this.authService.socialLogin(
-      req.user,
-      'FACEBOOK',
-      res,
-      req,
-    );
+    await this.authService.socialLogin(req.user, 'FACEBOOK', res, req);
+    res.redirect(`${APP_CLIENT_URL}/oauth-callback`);
   }
 }

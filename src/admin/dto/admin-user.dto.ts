@@ -7,7 +7,7 @@ import {
   IsBoolean,
   IsArray,
 } from 'class-validator';
-import { UserStatus } from '@prisma/client';
+import { BlogStatus, UserStatus } from '../../generated/prisma/client';
 
 export class CreateAdminUserDto {
   @ApiProperty({ example: 'john.doe@example.com' })
@@ -100,6 +100,41 @@ export class AdminUserQueryDto {
   @IsOptional()
   @IsString()
   role?: string;
+
+  @ApiPropertyOptional({ example: 'createdAt' })
+  @IsOptional()
+  @IsString()
+  sortBy?: string;
+
+  @ApiPropertyOptional({ example: 'desc' })
+  @IsOptional()
+  @IsString()
+  sortOrder?: 'asc' | 'desc';
+}
+
+export class AdminBlogQueryDto {
+  @ApiPropertyOptional({ example: 1 })
+  @IsOptional()
+  page?: number;
+
+  @ApiPropertyOptional({ example: 10 })
+  @IsOptional()
+  limit?: number;
+
+  @ApiPropertyOptional({ example: 'nestjs' })
+  @IsOptional()
+  @IsString()
+  search?: string;
+
+  @ApiPropertyOptional({ enum: BlogStatus })
+  @IsOptional()
+  @IsEnum(BlogStatus)
+  status?: BlogStatus;
+
+  @ApiPropertyOptional({ example: 'clxyz123' })
+  @IsOptional()
+  @IsString()
+  authorId?: string;
 
   @ApiPropertyOptional({ example: 'createdAt' })
   @IsOptional()

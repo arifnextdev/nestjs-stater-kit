@@ -2,10 +2,12 @@ import {
   Injectable,
   NotFoundException,
   UnauthorizedException,
+  ConflictException,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { OtpType } from '@prisma/client';
+import { OtpType } from '../generated/prisma/client';
 import * as bcrypt from 'bcrypt';
 import { Request, Response, CookieOptions } from 'express';
 import { OAuth2Client } from 'google-auth-library';
@@ -65,6 +67,27 @@ export class AuthService {
     );
   }
 
+  private async checkBlockedUser(user: {
+    id: string;
+    status: string;
+    blockedUntil: Date | null;
+  }): Promise<void> {
+    if (user.status === 'BLOCKED') {
+      if (user.blockedUntil && user.blockedUntil > new Date()) {
+        const remainingMs = user.blockedUntil.getTime() - new Date().getTime();
+        const remainingMin = Math.ceil(remainingMs / 60000);
+        throw new UnauthorizedException(
+          `This Account is blocked. Try again in ${remainingMin} minutes.`,
+        );
+      } else {
+        await this.prisma.user.update({
+          where: { id: user.id },
+          data: { status: 'ACTIVE', blockedUntil: null },
+        });
+      }
+    }
+  }
+
   async signUp(dto: CreateUserDto) {
     // Check if user exists first
     const existUser = await this.prisma.user.findUnique({
@@ -72,7 +95,7 @@ export class AuthService {
     });
 
     if (existUser) {
-      throw new UnauthorizedException('User already exists');
+      throw new ConflictException('User already exists');
     }
 
     // Hash password
@@ -84,7 +107,9 @@ export class AuthService {
     });
 
     if (!role) {
-      throw new UnauthorizedException('Role not found');
+      throw new InternalServerErrorException(
+        'Default USER role not found. Please run database seed.',
+      );
     }
 
     // Use transaction for user creation and OTP operations
@@ -164,21 +189,7 @@ export class AuthService {
       throw new UnauthorizedException('User not found');
     }
 
-    // Optional: block checks similar to forgotPassword
-    if (user.status === 'BLOCKED') {
-      if (user.blockedUntil && user.blockedUntil > new Date()) {
-        const remainingMs = user.blockedUntil.getTime() - new Date().getTime();
-        const remainingMin = Math.ceil(remainingMs / 60000);
-        throw new UnauthorizedException(
-          `This Account is blocked. Try again in ${remainingMin} minutes.`,
-        );
-      } else {
-        await this.prisma.user.update({
-          where: { id: user.id },
-          data: { status: 'ACTIVE', blockedUntil: null },
-        });
-      }
-    }
+    await this.checkBlockedUser(user);
 
     // Remove previous OTPs of same type
     await this.prisma.userOtp.deleteMany({
@@ -224,21 +235,7 @@ export class AuthService {
       throw new UnauthorizedException('User not found');
     }
 
-    // Optional: block checks similar to forgotPassword
-    if (user.status === 'BLOCKED') {
-      if (user.blockedUntil && user.blockedUntil > new Date()) {
-        const remainingMs = user.blockedUntil.getTime() - new Date().getTime();
-        const remainingMin = Math.ceil(remainingMs / 60000);
-        throw new UnauthorizedException(
-          `This Account is blocked. Try again in ${remainingMin} minutes.`,
-        );
-      } else {
-        await this.prisma.user.update({
-          where: { id: user.id },
-          data: { status: 'ACTIVE', blockedUntil: null },
-        });
-      }
-    }
+    await this.checkBlockedUser(user);
 
     //check last otp of type two factor
     const lastOtp = await this.prisma.userOtp.findFirst({
@@ -310,22 +307,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid login method');
     }
 
-    // Check if blocked and unblock if time expired
-    if (user.status === 'BLOCKED') {
-      if (user.blockedUntil && user.blockedUntil > new Date()) {
-        const remainingMs = user.blockedUntil.getTime() - new Date().getTime();
-        const remainingMin = Math.ceil(remainingMs / 60000);
-        throw new UnauthorizedException(
-          `This Account is blocked. Try again in ${remainingMin} minutes.`,
-        );
-      } else {
-        // Time passed, unblock
-        await this.prisma.user.update({
-          where: { id: user.id },
-          data: { status: 'ACTIVE', blockedUntil: null },
-        });
-      }
-    }
+    await this.checkBlockedUser(user);
     // Password match check
     const isMatch = await bcrypt.compare(dto.password, user.password);
     if (!isMatch) {
@@ -335,9 +317,6 @@ export class AuthService {
     }
 
     if (!user.isEmailVerified) {
-      //send verification email
-      // Generate OTP
-
       // Clear existing OTPs for this user
       await this.prisma.userOtp.deleteMany({
         where: { email: user.email },
@@ -363,7 +342,6 @@ export class AuthService {
     }
 
     if (user.isTwoFactorEnabled) {
-      //send 2fa email
       await this.prisma.userOtp.deleteMany({
         where: { email: user.email, type: 'TWO_FACTOR' },
       });
@@ -392,18 +370,6 @@ export class AuthService {
     await this.logLoginAttempt(user.id, req, 'SUCCESS');
     const accessToken = await this.generateTokens(user.id, user.status);
     const refreshToken = await this.generateRefreshToken(user.id, user.status);
-    // res.cookie('refreshToken', refreshToken, {
-    //   httpOnly: true,
-    //   secure: true,
-    //   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    //   sameSite: 'none',
-    // });
-    // res.cookie('accessToken', accessToken, {
-    //   httpOnly: true,
-    //   secure: true,
-    //   maxAge: 24 * 60 * 60 * 1000,
-    //   sameSite: 'none',
-    // });
     return {
       status: true,
       message: 'Login Successfull',
@@ -450,22 +416,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid login method');
     }
 
-    // Check if blocked and unblock if time expired
-    if (user.status === 'BLOCKED') {
-      if (user.blockedUntil && user.blockedUntil > new Date()) {
-        const remainingMs = user.blockedUntil.getTime() - new Date().getTime();
-        const remainingMin = Math.ceil(remainingMs / 60000);
-        throw new UnauthorizedException(
-          `This Account is blocked. Try again in ${remainingMin} minutes.`,
-        );
-      } else {
-        // Time passed, unblock
-        await this.prisma.user.update({
-          where: { id: user.id },
-          data: { status: 'ACTIVE', blockedUntil: null },
-        });
-      }
-    }
+    await this.checkBlockedUser(user);
     // Password match check
     const isMatch = await bcrypt.compare(dto.password, user.password);
     if (!isMatch) {
@@ -475,9 +426,6 @@ export class AuthService {
     }
 
     if (!user.isEmailVerified) {
-      //send verification email
-      // Generate OTP
-
       // Clear existing OTPs for this user
       await this.prisma.userOtp.deleteMany({
         where: { email: user.email },
@@ -823,7 +771,7 @@ export class AuthService {
       },
     });
 
-    const token = await this.jwtService.sign({ userId: found.id });
+    const token = await this.jwtService.signAsync({ userId: found.id });
     return { status: true, token, message: 'Password changed successfully' };
   }
 
@@ -834,25 +782,7 @@ export class AuthService {
       throw new UnauthorizedException('User not found');
     }
 
-    // Check if blocked and unblock if time expired
-    if (user.status === 'BLOCKED') {
-      if (user.blockedUntil && user.blockedUntil > new Date()) {
-        const remainingMs = user.blockedUntil.getTime() - new Date().getTime();
-        const remainingMin = Math.ceil(remainingMs / 60000);
-        throw new UnauthorizedException(
-          `This Account is blocked. Try again in ${remainingMin} minutes.`,
-        );
-      } else {
-        // Time passed, unblock
-        await this.prisma.user.update({
-          where: { id: user.id },
-          data: {
-            status: 'ACTIVE',
-            blockedUntil: null,
-          },
-        });
-      }
-    }
+    await this.checkBlockedUser(user);
 
     if (user.status !== 'ACTIVE') {
       throw new UnauthorizedException('This account is not active');
@@ -1135,7 +1065,9 @@ export class AuthService {
   private async generateTokens(userId: string, status: string) {
     const payload = { userId, status };
 
-    const accessToken = this.jwtService.sign(payload, { expiresIn: '1d' });
+    const accessToken = await this.jwtService.signAsync(payload, {
+      expiresIn: '1d',
+    });
 
     return accessToken;
   }
@@ -1143,13 +1075,15 @@ export class AuthService {
   private async generateOtpToken(status: string, email: string, type: string) {
     const payload = { status, email, type };
 
-    const token = this.jwtService.sign(payload, { expiresIn: '10m' });
+    const token = await this.jwtService.signAsync(payload, {
+      expiresIn: '10m',
+    });
 
     return token;
   }
 
   private async generateRefreshToken(userId: string, status: string) {
-    const refreshToken = this.jwtService.sign(
+    const refreshToken = await this.jwtService.signAsync(
       { userId, status },
       { expiresIn: '7d' },
     );

@@ -6,7 +6,7 @@ export interface AuditLogData {
   action: string;
   entity: string;
   entityId: string;
-  changes?: any;
+  changes?: Record<string, unknown>;
   ip?: string;
   userAgent?: string;
 }
@@ -45,7 +45,7 @@ export class AuditService {
     userId: string,
     action: 'CREATE' | 'UPDATE' | 'CANCEL' | 'CONFIRM',
     bookingId: string,
-    changes?: any,
+    changes?: Record<string, unknown>,
   ): Promise<void> {
     await this.log({
       userId,
@@ -60,7 +60,7 @@ export class AuditService {
     userId: string,
     action: 'INITIATE' | 'SUCCESS' | 'FAILED' | 'REFUND',
     transactionId: string,
-    changes?: any,
+    changes?: Record<string, unknown>,
   ): Promise<void> {
     await this.log({
       userId,
@@ -76,7 +76,7 @@ export class AuditService {
     action: string,
     entity: string,
     entityId: string,
-    changes?: any,
+    changes?: Record<string, unknown>,
   ): Promise<void> {
     await this.log({
       userId: adminId,

@@ -46,14 +46,25 @@ export class AdminRolesService {
   async getRoleById(id: string) {
     const role = await this.prisma.role.findUnique({
       where: { id },
-      include: {
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        createdAt: true,
+        updatedAt: true,
         rolePermissions: {
-          include: {
-            permissions: true,
+          select: {
+            permissions: {
+              select: {
+                id: true,
+                name: true,
+                description: true,
+              },
+            },
           },
         },
         users: {
-          include: {
+          select: {
             user: {
               select: {
                 id: true,

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "skills": {
+    "nestjs-best-practices": {
+      "source": "kadajett/agent-nestjs-skills",
+      "sourceType": "github",
+      "computedHash": "68658903272e1015f3ec5084c7d0988216a47f42f675ed819a675250fc6a23cd"
+    },
+    "nestjs-expert": {
+      "source": "jeffallan/claude-skills",
+      "sourceType": "github",
+      "computedHash": "73f712d3971871e3600174f300d2efdc773528979f8591d2c3ffdb0781e73a47"
+    },
+    "prisma-expert": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "b94dd43ed3b510bc691b0f0bb5d710c07b1beb0b76c9529d3b057aaf1e2eb6f0"
+    }
+  }
+}

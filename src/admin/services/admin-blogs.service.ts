@@ -1,12 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma, BlogStatus } from '../../generated/prisma/client';
 import { PrismaService } from '../../prisma/prisma.service';
-import { BlogStatus } from '@prisma/client';
+import { AdminBlogQueryDto } from '../dto/admin-user.dto';
 
 @Injectable()
 export class AdminBlogsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getAllBlogs(query: any) {
+  async getAllBlogs(query: AdminBlogQueryDto) {
     const {
       page = 1,
       limit = 10,
@@ -18,13 +19,13 @@ export class AdminBlogsService {
     } = query;
 
     // Convert string values to numbers
-    const pageNum = parseInt(page, 10) || 1;
-    const limitNum = parseInt(limit, 10) || 10;
+    const pageNum = parseInt(page as unknown as string, 10) || 1;
+    const limitNum = parseInt(limit as unknown as string, 10) || 10;
 
     const skip = (pageNum - 1) * limitNum;
     const take = limitNum;
 
-    const where: any = { deletedAt: null };
+    const where: Prisma.BlogWhereInput = { deletedAt: null };
 
     if (search) {
       where.OR = [

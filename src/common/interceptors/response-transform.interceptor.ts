@@ -22,13 +22,11 @@ export interface ApiResponse<T> {
  * Excludes file downloads and streaming responses
  */
 @Injectable()
-export class ResponseTransformInterceptor<T>
-  implements NestInterceptor<T, ApiResponse<T>>
-{
-  intercept(
-    context: ExecutionContext,
-    next: CallHandler,
-  ): Observable<ApiResponse<T>> {
+export class ResponseTransformInterceptor<T> implements NestInterceptor<
+  T,
+  unknown
+> {
+  intercept(context: ExecutionContext, next: CallHandler): Observable<unknown> {
     const ctx = context.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest();
@@ -40,14 +38,25 @@ export class ResponseTransformInterceptor<T>
 
     return next.handle().pipe(
       map((data) => {
-        // If data already has a status field, it might be a custom response
-        // Preserve it while ensuring standard structure
+        // If data already has a status field, it's a custom response shape
+        // Extract message/data cleanly to avoid double-nesting
         if (data && typeof data === 'object' && 'status' in data) {
+          const {
+            status,
+            message,
+            data: innerData,
+            ...rest
+          } = data as {
+            status: boolean;
+            message?: string;
+            data?: unknown;
+            [key: string]: unknown;
+          };
           return {
-            success: data.status === true,
+            success: status === true,
             statusCode: response.statusCode,
-            message: data.message || 'Success',
-            data: data.data || data,
+            message: message || 'Success',
+            data: innerData !== undefined ? innerData : rest,
             timestamp: new Date().toISOString(),
             path: request.url,
           };

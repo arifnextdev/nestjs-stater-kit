@@ -4,6 +4,7 @@ import {
   BadRequestException,
   ConflictException,
 } from '@nestjs/common';
+import { Prisma, UserStatus } from '../../generated/prisma/client';
 import { PrismaService } from '../../prisma/prisma.service';
 import {
   CreateAdminUserDto,
@@ -11,7 +12,6 @@ import {
   AdminUserQueryDto,
 } from '../dto/admin-user.dto';
 import * as bcrypt from 'bcrypt';
-import { UserStatus } from '@prisma/client';
 
 @Injectable()
 export class AdminUsersService {
@@ -36,7 +36,7 @@ export class AdminUsersService {
     const take = limitNum;
 
     // Build where clause
-    const where: any = {
+    const where: Prisma.UserWhereInput = {
       deletedAt: null, // Only get non-deleted users
     };
 
