@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
   S3Client,
@@ -14,6 +18,7 @@ import { createHash } from 'node:crypto';
 @Injectable()
 export class UploadService {
   private s3Client: S3Client;
+  private readonly logger = new Logger(UploadService.name);
 
   constructor(private configService: ConfigService) {
     this.s3Client = new S3Client({
@@ -51,12 +56,16 @@ export class UploadService {
         Bucket: bucket,
       };
     } catch (e) {
-      return e;
+      this.logger.error('S3 upload failed', e);
+      throw new InternalServerErrorException('File upload failed');
     }
   }
 
   // ========= Upload file entry point =========
-  public async uploadFile(file: any, folderName: string) {
+  public async uploadFile(
+    file: any,
+    folderName: string,
+  ): Promise<{ Location?: string; Key: string; Bucket?: string }> {
     file.originalname = file.originalname.trim().replace(/\s/g, '-');
     // content hash to version the object key for immutable caching
     const hash = createHash('sha1')
@@ -101,7 +110,7 @@ export class UploadService {
   }
 
   // ========= Delete file =========
-  public async deleteFile(key: string) {
+  public async deleteFile(key: string): Promise<void> {
     if (this.configService.get('DISABLE_LOCAL_STORAGE') === 'true') {
       const command = new DeleteObjectCommand({
         Bucket: this.configService.get('AWS_BUCKET_NAME'),
@@ -109,9 +118,10 @@ export class UploadService {
       });
 
       try {
-        return await this.s3Client.send(command);
+        await this.s3Client.send(command);
       } catch (e) {
-        return e;
+        this.logger.error('S3 delete failed', e);
+        throw new InternalServerErrorException('File deletion failed');
       }
     } else {
       const filePath = path.join(__dirname, '../../', key);

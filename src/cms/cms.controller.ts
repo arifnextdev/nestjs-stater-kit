@@ -250,7 +250,7 @@ export class CmsController {
     }
 
     const result = await this.uploadService.uploadFile(file, 'cms/logos');
-    const fileUrl = result.Location || `${process.env.APP_URL}/${result.Key}`;
+    const fileUrl = result.Location ?? `${process.env.APP_URL}/${result.Key}`;
 
     return {
       status: true,
@@ -294,7 +294,7 @@ export class CmsController {
     }
 
     const result = await this.uploadService.uploadFile(file, 'cms/favicons');
-    const fileUrl = result.Location || `${process.env.APP_URL}/${result.Key}`;
+    const fileUrl = result.Location ?? `${process.env.APP_URL}/${result.Key}`;
 
     return {
       status: true,
@@ -333,7 +333,7 @@ export class CmsController {
     }
 
     const result = await this.uploadService.uploadFile(file, 'cms/seo-images');
-    const fileUrl = result.Location || `${process.env.APP_URL}/${result.Key}`;
+    const fileUrl = result.Location ?? `${process.env.APP_URL}/${result.Key}`;
 
     return {
       status: true,
@@ -365,7 +365,7 @@ export class CmsController {
     file: Express.Multer.File,
   ) {
     const result = await this.uploadService.uploadFile(file, 'cms/content');
-    const fileUrl = result.Location || `${process.env.APP_URL}/${result.Key}`;
+    const fileUrl = result.Location ?? `${process.env.APP_URL}/${result.Key}`;
     return {
       status: true,
       data: { url: fileUrl, key: result.Key },

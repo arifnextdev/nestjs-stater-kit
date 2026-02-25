@@ -5,6 +5,8 @@ import {
   NotFoundException,
   BadRequestException,
 } from '@nestjs/common';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const sanitizeHtml = require('sanitize-html') as typeof import('sanitize-html');
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UploadService } from 'src/upload/upload.service';
 import { CreateBlogDto, createBlogSchema } from './dto/create-blog.dto';
@@ -51,6 +53,34 @@ export class BlogService {
    */
   private calculateWordCount(content: string): number {
     return content.trim().split(/\s+/).length;
+  }
+
+  private sanitizeContent(html: string): string {
+    return sanitizeHtml(html, {
+      allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+        'img',
+        'figure',
+        'figcaption',
+        'iframe',
+        'video',
+        'source',
+        'h1',
+        'h2',
+        'h3',
+        'h4',
+        'h5',
+        'h6',
+      ]),
+      allowedAttributes: {
+        ...sanitizeHtml.defaults.allowedAttributes,
+        img: ['src', 'alt', 'width', 'height', 'class', 'loading'],
+        iframe: ['src', 'width', 'height', 'allowfullscreen', 'frameborder'],
+        video: ['src', 'controls', 'width', 'height', 'poster'],
+        source: ['src', 'type'],
+        '*': ['class', 'id', 'style'],
+      },
+      allowedSchemes: ['http', 'https', 'data'],
+    });
   }
 
   /**
@@ -135,6 +165,9 @@ export class BlogService {
       const uploadResult = await this.uploadService.uploadFile(file, 'blogs');
       enrichedData.featuredImage = uploadResult.Key;
     }
+
+    // Sanitize HTML content to prevent XSS
+    enrichedData.content = this.sanitizeContent(enrichedData.content!);
 
     // Calculate reading time and word count
     const readingTime = this.calculateReadingTime(enrichedData.content!);
@@ -254,10 +287,11 @@ export class BlogService {
       enrichedData.featuredImage = uploadResult.Key;
     }
 
-    // Recalculate reading time and word count if content is updated
+    // Sanitize and recalculate reading time / word count if content updated
     let readingTime = blog.readingTime;
     let wordCount = blog.wordCount;
     if (enrichedData.content) {
+      enrichedData.content = this.sanitizeContent(enrichedData.content);
       readingTime = this.calculateReadingTime(enrichedData.content);
       wordCount = this.calculateWordCount(enrichedData.content);
     }

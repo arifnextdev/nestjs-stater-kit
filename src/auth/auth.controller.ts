@@ -75,7 +75,7 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('refresh-token')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt-refresh'))
   refresh(@Req() req: AuthenticateRequest) {
     if (!req.user) {
       throw new UnauthorizedException('Unauthorized');
