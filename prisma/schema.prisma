@@ -51,9 +51,7 @@ model User {
   auditLogs            AuditLog[]
   siteSettingsUpdates  SiteSettings[]        @relation("SiteSettingsUpdater")
   seoSettingsUpdates   SEOSettings[]         @relation("SEOSettingsUpdater")
-  heroSectionsUpdated  HeroSection[]         @relation("HeroSectionUpdater")
-  bannersUpdated       Banner[]              @relation("BannerUpdater")
-  testimonialsUpdated  Testimonial[]         @relation("TestimonialUpdater")
+
 
   // Indexes
   @@index([email])
@@ -595,84 +593,3 @@ model SEOSettings {
   @@map("seo_settings")
 }
 
-// ==================== CMS Content ====================
-
-model HeroSection {
-  id                  String   @id @default(ulid())
-  title               String   @db.VarChar(255)
-  subtitle            String?  @db.VarChar(300)
-  description         String?  @db.Text
-  primaryButtonText   String?  @db.VarChar(50)
-  primaryButtonUrl    String?  @db.VarChar(500)
-  secondaryButtonText String?  @db.VarChar(50)
-  secondaryButtonUrl  String?  @db.VarChar(500)
-  backgroundImage     String?  @db.VarChar(500)
-  backgroundVideo     String?  @db.VarChar(500)
-  overlayOpacity      Int?
-  textAlignment       String   @default("left") @db.VarChar(10) // left, center, right
-  isActive            Boolean  @default(true)
-  displayOrder        Int      @default(0)
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-  updatedBy           String?
-  updater             User?    @relation("HeroSectionUpdater", fields: [updatedBy], references: [id], onDelete: SetNull)
-
-  @@index([isActive])
-  @@index([displayOrder])
-  @@index([createdAt])
-  @@map("hero_sections")
-}
-
-model Banner {
-  id              String    @id @default(ulid())
-  title           String    @db.VarChar(100)
-  message         String?   @db.VarChar(500)
-  type            String    @db.VarChar(20) // info | warning | success | error | promotion
-  backgroundColor String?   @db.VarChar(7)
-  textColor       String?   @db.VarChar(7)
-  buttonText      String?   @db.VarChar(50)
-  buttonUrl       String?   @db.VarChar(500)
-  buttonColor     String?   @db.VarChar(7)
-  icon            String?   @db.VarChar(500)
-  isActive        Boolean   @default(true)
-  isDismissible   Boolean   @default(true)
-  startDate       DateTime?
-  endDate         DateTime?
-  displayOrder    Int       @default(0)
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  updatedBy       String?
-  updater         User?     @relation("BannerUpdater", fields: [updatedBy], references: [id], onDelete: SetNull)
-
-  @@index([isActive])
-  @@index([type])
-  @@index([startDate])
-  @@index([endDate])
-  @@index([displayOrder])
-  @@index([createdAt])
-  @@map("banners")
-}
-
-model Testimonial {
-  id           String   @id @default(ulid())
-  name         String   @db.VarChar(100)
-  position     String?  @db.VarChar(100)
-  company      String?  @db.VarChar(100)
-  content      String   @db.Text
-  rating       Int?
-  avatar       String?  @db.VarChar(500)
-  isActive     Boolean  @default(true)
-  isFeatured   Boolean  @default(false)
-  displayOrder Int      @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  updatedBy    String?
-  updater      User?    @relation("TestimonialUpdater", fields: [updatedBy], references: [id], onDelete: SetNull)
-
-  @@index([isActive])
-  @@index([isFeatured])
-  @@index([rating])
-  @@index([displayOrder])
-  @@index([createdAt])
-  @@map("testimonials")
-}

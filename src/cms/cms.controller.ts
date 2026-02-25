@@ -346,65 +346,6 @@ export class CmsController {
   }
 
   /**
-   * Upload hero background image
-   */
-  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-  @Permissions('admin.settings.update')
-  @Post('upload/hero-image')
-  @UseInterceptors(FileInterceptor('file'))
-  async uploadHeroImage(
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [
-          new MaxFileSizeValidator({ maxSize: 10 * 1024 * 1024 }),
-          new FileTypeValidator({ fileType: /(jpg|jpeg|png|webp|mp4|mov)$/ }),
-        ],
-        fileIsRequired: true,
-      }),
-    )
-    file: Express.Multer.File,
-  ) {
-    const result = await this.uploadService.uploadFile(file, 'cms/hero');
-    const fileUrl = result.Location || `${process.env.APP_URL}/${result.Key}`;
-    return {
-      status: true,
-      data: { url: fileUrl, key: result.Key },
-      message: 'Hero image uploaded successfully',
-    };
-  }
-
-  /**
-   * Upload testimonial avatar
-   */
-  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-  @Permissions('admin.settings.update')
-  @Post('upload/testimonial-avatar')
-  @UseInterceptors(FileInterceptor('file'))
-  async uploadTestimonialAvatar(
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [
-          new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }),
-          new FileTypeValidator({ fileType: /(jpg|jpeg|png|webp)$/ }),
-        ],
-        fileIsRequired: true,
-      }),
-    )
-    file: Express.Multer.File,
-  ) {
-    const result = await this.uploadService.uploadFile(
-      file,
-      'cms/testimonials',
-    );
-    const fileUrl = result.Location || `${process.env.APP_URL}/${result.Key}`;
-    return {
-      status: true,
-      data: { url: fileUrl, key: result.Key },
-      message: 'Testimonial avatar uploaded successfully',
-    };
-  }
-
-  /**
    * Upload generic content image
    */
   @UseGuards(AuthGuard('jwt'), PermissionsGuard)

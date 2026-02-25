@@ -1,7 +1,4 @@
-import { AdminCmsHeroController } from './controllers/admin-cms-hero.controller';
-import { AdminCmsBannerController } from './controllers/admin-cms-banner.controller';
 import { AdminCmsSettingsController } from './controllers/admin-cms-settings.controller';
-import { AdminCmsTestimonialController } from './controllers/admin-cms-testimonial.controller';
 import { Module } from '@nestjs/common';
 
 import { PrismaModule } from '../prisma/prisma.module';
@@ -30,10 +27,7 @@ import { AdminSystemService } from './services/admin-system.service';
     AdminRolesController,
     AdminDashboardController,
     AdminSystemController,
-    AdminCmsHeroController,
-    AdminCmsBannerController,
     AdminCmsSettingsController,
-    AdminCmsTestimonialController,
   ],
   providers: [
     AdminService,
