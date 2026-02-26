@@ -9,10 +9,11 @@ export const redisConfig: RedisOptions = {
   username: process.env.REDIS_USERNAME,
   password: process.env.REDIS_PASSWORD,
   port: process.env.REDIS_PORT ? parseInt(process.env.REDIS_PORT) : 6379,
+  lazyConnect: true,
   // tls: {},
 };
 
-export const redisPub = new Redis(redisConfig);
-export const redisSub = new Redis(redisConfig);
+export const redisPub = new Redis({ ...redisConfig, lazyConnect: true });
+export const redisSub = new Redis({ ...redisConfig, lazyConnect: true });
 
 export const NOTIFICATION_CHANNEL = 'notification:channel';
