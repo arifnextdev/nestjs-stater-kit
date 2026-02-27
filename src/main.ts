@@ -49,6 +49,7 @@ async function bootstrap() {
     helmet({
       contentSecurityPolicy: nodeEnv === 'production' ? undefined : false,
       crossOriginEmbedderPolicy: false,
+      crossOriginResourcePolicy: { policy: 'cross-origin' },
     }),
   );
 

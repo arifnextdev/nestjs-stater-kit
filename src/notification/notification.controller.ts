@@ -20,8 +20,7 @@ import { AuthenticateRequest } from 'src/auth/types/types';
 export class NotificationController {
   constructor(private readonly service: NotificationService) {}
 
-  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-  @Permissions('notification.read')
+  @UseGuards(AuthGuard('jwt'))
   @Get('me')
   getMyNotifications(@Req() req: AuthenticateRequest, @Query() query: any) {
     if (!req.user) {
@@ -37,15 +36,13 @@ export class NotificationController {
     return this.service.sendNotification(id, body);
   }
 
-  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-  @Permissions('notification.update')
+  @UseGuards(AuthGuard('jwt'))
   @Patch(':id/read')
   markAsRead(@Param('id') id: string) {
     return this.service.markAsRead(id);
   }
 
-  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-  @Permissions('notification.update')
+  @UseGuards(AuthGuard('jwt'))
   @Patch('mark-all-read')
   markAllAsRead(@Req() req: AuthenticateRequest) {
     if (!req.user) {

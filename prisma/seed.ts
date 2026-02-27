@@ -291,6 +291,16 @@ async function main() {
       },
     }),
 
+    // Notification Permissions
+    prisma.permission.upsert({
+      where: { name: 'notification.create' },
+      update: {},
+      create: {
+        name: 'notification.create',
+        description: 'Send notifications to users (admin)',
+      },
+    }),
+
     // System Management Permissions (SUPER_ADMIN only)
     prisma.permission.upsert({
       where: { name: 'system:health' },

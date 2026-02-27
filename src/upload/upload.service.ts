@@ -86,7 +86,8 @@ export class UploadService {
     const localStoragePath = path.join('storage', newFileName);
     fs.mkdirSync(path.dirname(localStoragePath), { recursive: true });
     fs.writeFileSync(localStoragePath, file.buffer);
-    return { Key: localStoragePath };
+    // Always store key with forward slashes so URLs are valid on all platforms
+    return { Key: localStoragePath.replace(/\\/g, '/') };
   }
 
   // ========= Generate public signed URL =========
@@ -100,7 +101,11 @@ export class UploadService {
 
   // ========= View image from local =========
   public localView(key: string, res: any) {
-    const filePath = path.join(__dirname, '../../', key);
+    // Normalize key: replace backslashes with forward slashes
+    const normalizedKey = key.replace(/\\/g, '/');
+    // Use process.cwd() (always the project root) instead of __dirname
+    // which varies between ts-node (src/upload) and compiled dist (dist/upload)
+    const filePath = path.join(process.cwd(), normalizedKey);
 
     if (fs.existsSync(filePath)) {
       res.set('Cache-Control', 'public, max-age=31536000, immutable');
@@ -124,7 +129,8 @@ export class UploadService {
         throw new InternalServerErrorException('File deletion failed');
       }
     } else {
-      const filePath = path.join(__dirname, '../../', key);
+      const normalizedKey = key.replace(/\\/g, '/');
+      const filePath = path.join(process.cwd(), normalizedKey);
       if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
       }
