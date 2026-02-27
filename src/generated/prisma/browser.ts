@@ -108,6 +108,11 @@ export type BlogComment = Prisma.BlogCommentModel
  */
 export type BlogView = Prisma.BlogViewModel
 /**
+ * Model Media
+ * 
+ */
+export type Media = Prisma.MediaModel
+/**
  * Model SiteSettings
  * 
  */
@@ -117,18 +122,3 @@ export type SiteSettings = Prisma.SiteSettingsModel
  * 
  */
 export type SEOSettings = Prisma.SEOSettingsModel
-/**
- * Model HeroSection
- * 
- */
-export type HeroSection = Prisma.HeroSectionModel
-/**
- * Model Banner
- * 
- */
-export type Banner = Prisma.BannerModel
-/**
- * Model Testimonial
- * 
- */
-export type Testimonial = Prisma.TestimonialModel

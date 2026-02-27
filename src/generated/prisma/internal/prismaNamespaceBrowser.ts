@@ -69,11 +69,9 @@ export const ModelName = {
   BlogTag: 'BlogTag',
   BlogComment: 'BlogComment',
   BlogView: 'BlogView',
+  Media: 'Media',
   SiteSettings: 'SiteSettings',
-  SEOSettings: 'SEOSettings',
-  HeroSection: 'HeroSection',
-  Banner: 'Banner',
-  Testimonial: 'Testimonial'
+  SEOSettings: 'SEOSettings'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -370,6 +368,21 @@ export const BlogViewScalarFieldEnum = {
 export type BlogViewScalarFieldEnum = (typeof BlogViewScalarFieldEnum)[keyof typeof BlogViewScalarFieldEnum]
 
 
+export const MediaScalarFieldEnum = {
+  id: 'id',
+  filename: 'filename',
+  url: 'url',
+  key: 'key',
+  mimeType: 'mimeType',
+  size: 'size',
+  folder: 'folder',
+  uploadedBy: 'uploadedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type MediaScalarFieldEnum = (typeof MediaScalarFieldEnum)[keyof typeof MediaScalarFieldEnum]
+
+
 export const SiteSettingsScalarFieldEnum = {
   id: 'id',
   siteName: 'siteName',
@@ -421,72 +434,6 @@ export const SEOSettingsScalarFieldEnum = {
 } as const
 
 export type SEOSettingsScalarFieldEnum = (typeof SEOSettingsScalarFieldEnum)[keyof typeof SEOSettingsScalarFieldEnum]
-
-
-export const HeroSectionScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  subtitle: 'subtitle',
-  description: 'description',
-  primaryButtonText: 'primaryButtonText',
-  primaryButtonUrl: 'primaryButtonUrl',
-  secondaryButtonText: 'secondaryButtonText',
-  secondaryButtonUrl: 'secondaryButtonUrl',
-  backgroundImage: 'backgroundImage',
-  backgroundVideo: 'backgroundVideo',
-  overlayOpacity: 'overlayOpacity',
-  textAlignment: 'textAlignment',
-  isActive: 'isActive',
-  displayOrder: 'displayOrder',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  updatedBy: 'updatedBy'
-} as const
-
-export type HeroSectionScalarFieldEnum = (typeof HeroSectionScalarFieldEnum)[keyof typeof HeroSectionScalarFieldEnum]
-
-
-export const BannerScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  message: 'message',
-  type: 'type',
-  backgroundColor: 'backgroundColor',
-  textColor: 'textColor',
-  buttonText: 'buttonText',
-  buttonUrl: 'buttonUrl',
-  buttonColor: 'buttonColor',
-  icon: 'icon',
-  isActive: 'isActive',
-  isDismissible: 'isDismissible',
-  startDate: 'startDate',
-  endDate: 'endDate',
-  displayOrder: 'displayOrder',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  updatedBy: 'updatedBy'
-} as const
-
-export type BannerScalarFieldEnum = (typeof BannerScalarFieldEnum)[keyof typeof BannerScalarFieldEnum]
-
-
-export const TestimonialScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  position: 'position',
-  company: 'company',
-  content: 'content',
-  rating: 'rating',
-  avatar: 'avatar',
-  isActive: 'isActive',
-  isFeatured: 'isFeatured',
-  displayOrder: 'displayOrder',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  updatedBy: 'updatedBy'
-} as const
-
-export type TestimonialScalarFieldEnum = (typeof TestimonialScalarFieldEnum)[keyof typeof TestimonialScalarFieldEnum]
 
 
 export const SortOrder = {

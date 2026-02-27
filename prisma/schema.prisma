@@ -51,7 +51,7 @@ model User {
   auditLogs            AuditLog[]
   siteSettingsUpdates  SiteSettings[]        @relation("SiteSettingsUpdater")
   seoSettingsUpdates   SEOSettings[]         @relation("SEOSettingsUpdater")
-
+  media                Media[]
 
   // Indexes
   @@index([email])
@@ -504,6 +504,26 @@ model BlogView {
   @@map("blog_views")
 }
 
+// ==================== Media Library ====================
+
+model Media {
+  id         String   @id @default(cuid())
+  filename   String
+  url        String
+  key        String   @unique
+  mimeType   String
+  size       Int
+  folder     String   @default("uploads")
+  uploadedBy String?
+  createdAt  DateTime @default(now())
+
+  uploader User? @relation(fields: [uploadedBy], references: [id], onDelete: SetNull)
+
+  @@index([createdAt])
+  @@index([mimeType])
+  @@map("media")
+}
+
 // ==================== CMS Settings ====================
 
 model SiteSettings {
@@ -592,4 +612,3 @@ model SEOSettings {
   @@index([updatedAt])
   @@map("seo_settings")
 }
-

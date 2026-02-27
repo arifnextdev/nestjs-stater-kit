@@ -295,9 +295,7 @@ export type UserWhereInput = {
   auditLogs?: Prisma.AuditLogListRelationFilter
   siteSettingsUpdates?: Prisma.SiteSettingsListRelationFilter
   seoSettingsUpdates?: Prisma.SEOSettingsListRelationFilter
-  heroSectionsUpdated?: Prisma.HeroSectionListRelationFilter
-  bannersUpdated?: Prisma.BannerListRelationFilter
-  testimonialsUpdated?: Prisma.TestimonialListRelationFilter
+  media?: Prisma.MediaListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -328,9 +326,7 @@ export type UserOrderByWithRelationInput = {
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
   siteSettingsUpdates?: Prisma.SiteSettingsOrderByRelationAggregateInput
   seoSettingsUpdates?: Prisma.SEOSettingsOrderByRelationAggregateInput
-  heroSectionsUpdated?: Prisma.HeroSectionOrderByRelationAggregateInput
-  bannersUpdated?: Prisma.BannerOrderByRelationAggregateInput
-  testimonialsUpdated?: Prisma.TestimonialOrderByRelationAggregateInput
+  media?: Prisma.MediaOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -364,9 +360,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   auditLogs?: Prisma.AuditLogListRelationFilter
   siteSettingsUpdates?: Prisma.SiteSettingsListRelationFilter
   seoSettingsUpdates?: Prisma.SEOSettingsListRelationFilter
-  heroSectionsUpdated?: Prisma.HeroSectionListRelationFilter
-  bannersUpdated?: Prisma.BannerListRelationFilter
-  testimonialsUpdated?: Prisma.TestimonialListRelationFilter
+  media?: Prisma.MediaListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -445,9 +439,7 @@ export type UserCreateInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaCreateNestedManyWithoutUploaderInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -478,9 +470,7 @@ export type UserUncheckedCreateInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerUncheckedCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutUploaderInput
 }
 
 export type UserUpdateInput = {
@@ -511,9 +501,7 @@ export type UserUpdateInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -544,9 +532,7 @@ export type UserUncheckedUpdateInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUncheckedUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUncheckedUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -809,6 +795,22 @@ export type UserUpdateOneRequiredWithoutBlogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBlogsInput, Prisma.UserUpdateWithoutBlogsInput>, Prisma.UserUncheckedUpdateWithoutBlogsInput>
 }
 
+export type UserCreateNestedOneWithoutMediaInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMediaInput, Prisma.UserUncheckedCreateWithoutMediaInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMediaInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutMediaNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMediaInput, Prisma.UserUncheckedCreateWithoutMediaInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMediaInput
+  upsert?: Prisma.UserUpsertWithoutMediaInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMediaInput, Prisma.UserUpdateWithoutMediaInput>, Prisma.UserUncheckedUpdateWithoutMediaInput>
+}
+
 export type UserCreateNestedOneWithoutSiteSettingsUpdatesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSiteSettingsUpdatesInput, Prisma.UserUncheckedCreateWithoutSiteSettingsUpdatesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSiteSettingsUpdatesInput
@@ -841,54 +843,6 @@ export type UserUpdateOneWithoutSeoSettingsUpdatesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSeoSettingsUpdatesInput, Prisma.UserUpdateWithoutSeoSettingsUpdatesInput>, Prisma.UserUncheckedUpdateWithoutSeoSettingsUpdatesInput>
 }
 
-export type UserCreateNestedOneWithoutHeroSectionsUpdatedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutHeroSectionsUpdatedInput, Prisma.UserUncheckedCreateWithoutHeroSectionsUpdatedInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutHeroSectionsUpdatedInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneWithoutHeroSectionsUpdatedNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutHeroSectionsUpdatedInput, Prisma.UserUncheckedCreateWithoutHeroSectionsUpdatedInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutHeroSectionsUpdatedInput
-  upsert?: Prisma.UserUpsertWithoutHeroSectionsUpdatedInput
-  disconnect?: Prisma.UserWhereInput | boolean
-  delete?: Prisma.UserWhereInput | boolean
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutHeroSectionsUpdatedInput, Prisma.UserUpdateWithoutHeroSectionsUpdatedInput>, Prisma.UserUncheckedUpdateWithoutHeroSectionsUpdatedInput>
-}
-
-export type UserCreateNestedOneWithoutBannersUpdatedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutBannersUpdatedInput, Prisma.UserUncheckedCreateWithoutBannersUpdatedInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBannersUpdatedInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneWithoutBannersUpdatedNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutBannersUpdatedInput, Prisma.UserUncheckedCreateWithoutBannersUpdatedInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBannersUpdatedInput
-  upsert?: Prisma.UserUpsertWithoutBannersUpdatedInput
-  disconnect?: Prisma.UserWhereInput | boolean
-  delete?: Prisma.UserWhereInput | boolean
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBannersUpdatedInput, Prisma.UserUpdateWithoutBannersUpdatedInput>, Prisma.UserUncheckedUpdateWithoutBannersUpdatedInput>
-}
-
-export type UserCreateNestedOneWithoutTestimonialsUpdatedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutTestimonialsUpdatedInput, Prisma.UserUncheckedCreateWithoutTestimonialsUpdatedInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTestimonialsUpdatedInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneWithoutTestimonialsUpdatedNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutTestimonialsUpdatedInput, Prisma.UserUncheckedCreateWithoutTestimonialsUpdatedInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTestimonialsUpdatedInput
-  upsert?: Prisma.UserUpsertWithoutTestimonialsUpdatedInput
-  disconnect?: Prisma.UserWhereInput | boolean
-  delete?: Prisma.UserWhereInput | boolean
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTestimonialsUpdatedInput, Prisma.UserUpdateWithoutTestimonialsUpdatedInput>, Prisma.UserUncheckedUpdateWithoutTestimonialsUpdatedInput>
-}
-
 export type UserCreateWithoutAccountsInput = {
   id?: string
   email: string
@@ -916,9 +870,7 @@ export type UserCreateWithoutAccountsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaCreateNestedManyWithoutUploaderInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -948,9 +900,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerUncheckedCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutUploaderInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -996,9 +946,7 @@ export type UserUpdateWithoutAccountsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1028,9 +976,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUncheckedUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUncheckedUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserCreateWithoutLoginHistoryInput = {
@@ -1060,9 +1006,7 @@ export type UserCreateWithoutLoginHistoryInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaCreateNestedManyWithoutUploaderInput
 }
 
 export type UserUncheckedCreateWithoutLoginHistoryInput = {
@@ -1092,9 +1036,7 @@ export type UserUncheckedCreateWithoutLoginHistoryInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerUncheckedCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutUploaderInput
 }
 
 export type UserCreateOrConnectWithoutLoginHistoryInput = {
@@ -1140,9 +1082,7 @@ export type UserUpdateWithoutLoginHistoryInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLoginHistoryInput = {
@@ -1172,9 +1112,7 @@ export type UserUncheckedUpdateWithoutLoginHistoryInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUncheckedUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUncheckedUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserCreateWithoutRolesInput = {
@@ -1204,9 +1142,7 @@ export type UserCreateWithoutRolesInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaCreateNestedManyWithoutUploaderInput
 }
 
 export type UserUncheckedCreateWithoutRolesInput = {
@@ -1236,9 +1172,7 @@ export type UserUncheckedCreateWithoutRolesInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerUncheckedCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutUploaderInput
 }
 
 export type UserCreateOrConnectWithoutRolesInput = {
@@ -1284,9 +1218,7 @@ export type UserUpdateWithoutRolesInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRolesInput = {
@@ -1316,9 +1248,7 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUncheckedUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUncheckedUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -1348,9 +1278,7 @@ export type UserCreateWithoutNotificationsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaCreateNestedManyWithoutUploaderInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -1380,9 +1308,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerUncheckedCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutUploaderInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -1428,9 +1354,7 @@ export type UserUpdateWithoutNotificationsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -1460,9 +1384,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUncheckedUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUncheckedUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserCreateWithoutNotificationSettingsInput = {
@@ -1492,9 +1414,7 @@ export type UserCreateWithoutNotificationSettingsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaCreateNestedManyWithoutUploaderInput
 }
 
 export type UserUncheckedCreateWithoutNotificationSettingsInput = {
@@ -1524,9 +1444,7 @@ export type UserUncheckedCreateWithoutNotificationSettingsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerUncheckedCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutUploaderInput
 }
 
 export type UserCreateOrConnectWithoutNotificationSettingsInput = {
@@ -1572,9 +1490,7 @@ export type UserUpdateWithoutNotificationSettingsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationSettingsInput = {
@@ -1604,9 +1520,7 @@ export type UserUncheckedUpdateWithoutNotificationSettingsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUncheckedUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUncheckedUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -1636,9 +1550,7 @@ export type UserCreateWithoutAuditLogsInput = {
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
   siteSettingsUpdates?: Prisma.SiteSettingsCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaCreateNestedManyWithoutUploaderInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -1668,9 +1580,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerUncheckedCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutUploaderInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -1716,9 +1626,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -1748,9 +1656,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUncheckedUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUncheckedUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserCreateWithoutBlogsInput = {
@@ -1780,9 +1686,7 @@ export type UserCreateWithoutBlogsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaCreateNestedManyWithoutUploaderInput
 }
 
 export type UserUncheckedCreateWithoutBlogsInput = {
@@ -1812,9 +1716,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedCreateNestedManyWithoutUpdaterInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerUncheckedCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutUploaderInput
 }
 
 export type UserCreateOrConnectWithoutBlogsInput = {
@@ -1860,9 +1762,7 @@ export type UserUpdateWithoutBlogsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogsInput = {
@@ -1892,9 +1792,143 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUncheckedUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUncheckedUpdateManyWithoutUploaderNestedInput
+}
+
+export type UserCreateWithoutMediaInput = {
+  id?: string
+  email: string
+  name: string
+  avatar?: string | null
+  password?: string | null
+  phone?: string | null
+  status?: $Enums.UserStatus
+  isEmailVerified?: boolean
+  isTwoFactorEnabled?: boolean
+  isSellerVerified?: boolean
+  blockedUntil?: Date | string | null
+  lastLoginAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  stripeCustomerId?: string | null
+  stripeOnboardingComplete?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  loginHistory?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedOneWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  siteSettingsUpdates?: Prisma.SiteSettingsCreateNestedManyWithoutUpdaterInput
+  seoSettingsUpdates?: Prisma.SEOSettingsCreateNestedManyWithoutUpdaterInput
+}
+
+export type UserUncheckedCreateWithoutMediaInput = {
+  id?: string
+  email: string
+  name: string
+  avatar?: string | null
+  password?: string | null
+  phone?: string | null
+  status?: $Enums.UserStatus
+  isEmailVerified?: boolean
+  isTwoFactorEnabled?: boolean
+  isSellerVerified?: boolean
+  blockedUntil?: Date | string | null
+  lastLoginAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  stripeCustomerId?: string | null
+  stripeOnboardingComplete?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  loginHistory?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  siteSettingsUpdates?: Prisma.SiteSettingsUncheckedCreateNestedManyWithoutUpdaterInput
+  seoSettingsUpdates?: Prisma.SEOSettingsUncheckedCreateNestedManyWithoutUpdaterInput
+}
+
+export type UserCreateOrConnectWithoutMediaInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMediaInput, Prisma.UserUncheckedCreateWithoutMediaInput>
+}
+
+export type UserUpsertWithoutMediaInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMediaInput, Prisma.UserUncheckedUpdateWithoutMediaInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMediaInput, Prisma.UserUncheckedCreateWithoutMediaInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMediaInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMediaInput, Prisma.UserUncheckedUpdateWithoutMediaInput>
+}
+
+export type UserUpdateWithoutMediaInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSellerVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeOnboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  loginHistory?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateOneWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  siteSettingsUpdates?: Prisma.SiteSettingsUpdateManyWithoutUpdaterNestedInput
+  seoSettingsUpdates?: Prisma.SEOSettingsUpdateManyWithoutUpdaterNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMediaInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSellerVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeOnboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  loginHistory?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  siteSettingsUpdates?: Prisma.SiteSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
+  seoSettingsUpdates?: Prisma.SEOSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
 }
 
 export type UserCreateWithoutSiteSettingsUpdatesInput = {
@@ -1924,9 +1958,7 @@ export type UserCreateWithoutSiteSettingsUpdatesInput = {
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   seoSettingsUpdates?: Prisma.SEOSettingsCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaCreateNestedManyWithoutUploaderInput
 }
 
 export type UserUncheckedCreateWithoutSiteSettingsUpdatesInput = {
@@ -1956,9 +1988,7 @@ export type UserUncheckedCreateWithoutSiteSettingsUpdatesInput = {
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerUncheckedCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutUploaderInput
 }
 
 export type UserCreateOrConnectWithoutSiteSettingsUpdatesInput = {
@@ -2004,9 +2034,7 @@ export type UserUpdateWithoutSiteSettingsUpdatesInput = {
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSiteSettingsUpdatesInput = {
@@ -2036,9 +2064,7 @@ export type UserUncheckedUpdateWithoutSiteSettingsUpdatesInput = {
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   seoSettingsUpdates?: Prisma.SEOSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUncheckedUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUncheckedUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserCreateWithoutSeoSettingsUpdatesInput = {
@@ -2068,9 +2094,7 @@ export type UserCreateWithoutSeoSettingsUpdatesInput = {
   blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaCreateNestedManyWithoutUploaderInput
 }
 
 export type UserUncheckedCreateWithoutSeoSettingsUpdatesInput = {
@@ -2100,9 +2124,7 @@ export type UserUncheckedCreateWithoutSeoSettingsUpdatesInput = {
   blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerUncheckedCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedCreateNestedManyWithoutUpdaterInput
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutUploaderInput
 }
 
 export type UserCreateOrConnectWithoutSeoSettingsUpdatesInput = {
@@ -2148,9 +2170,7 @@ export type UserUpdateWithoutSeoSettingsUpdatesInput = {
   blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUpdateManyWithoutUploaderNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSeoSettingsUpdatesInput = {
@@ -2180,441 +2200,7 @@ export type UserUncheckedUpdateWithoutSeoSettingsUpdatesInput = {
   blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   siteSettingsUpdates?: Prisma.SiteSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUncheckedUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedUpdateManyWithoutUpdaterNestedInput
-}
-
-export type UserCreateWithoutHeroSectionsUpdatedInput = {
-  id?: string
-  email: string
-  name: string
-  avatar?: string | null
-  password?: string | null
-  phone?: string | null
-  status?: $Enums.UserStatus
-  isEmailVerified?: boolean
-  isTwoFactorEnabled?: boolean
-  isSellerVerified?: boolean
-  blockedUntil?: Date | string | null
-  lastLoginAt?: Date | string | null
-  emailVerifiedAt?: Date | string | null
-  stripeCustomerId?: string | null
-  stripeOnboardingComplete?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
-  loginHistory?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput
-  notificationSettings?: Prisma.NotificationSettingsCreateNestedOneWithoutUserInput
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  siteSettingsUpdates?: Prisma.SiteSettingsCreateNestedManyWithoutUpdaterInput
-  seoSettingsUpdates?: Prisma.SEOSettingsCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialCreateNestedManyWithoutUpdaterInput
-}
-
-export type UserUncheckedCreateWithoutHeroSectionsUpdatedInput = {
-  id?: string
-  email: string
-  name: string
-  avatar?: string | null
-  password?: string | null
-  phone?: string | null
-  status?: $Enums.UserStatus
-  isEmailVerified?: boolean
-  isTwoFactorEnabled?: boolean
-  isSellerVerified?: boolean
-  blockedUntil?: Date | string | null
-  lastLoginAt?: Date | string | null
-  emailVerifiedAt?: Date | string | null
-  stripeCustomerId?: string | null
-  stripeOnboardingComplete?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
-  loginHistory?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput
-  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  siteSettingsUpdates?: Prisma.SiteSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  seoSettingsUpdates?: Prisma.SEOSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerUncheckedCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedCreateNestedManyWithoutUpdaterInput
-}
-
-export type UserCreateOrConnectWithoutHeroSectionsUpdatedInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutHeroSectionsUpdatedInput, Prisma.UserUncheckedCreateWithoutHeroSectionsUpdatedInput>
-}
-
-export type UserUpsertWithoutHeroSectionsUpdatedInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutHeroSectionsUpdatedInput, Prisma.UserUncheckedUpdateWithoutHeroSectionsUpdatedInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutHeroSectionsUpdatedInput, Prisma.UserUncheckedCreateWithoutHeroSectionsUpdatedInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutHeroSectionsUpdatedInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutHeroSectionsUpdatedInput, Prisma.UserUncheckedUpdateWithoutHeroSectionsUpdatedInput>
-}
-
-export type UserUpdateWithoutHeroSectionsUpdatedInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isSellerVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeOnboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
-  loginHistory?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput
-  notificationSettings?: Prisma.NotificationSettingsUpdateOneWithoutUserNestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  siteSettingsUpdates?: Prisma.SiteSettingsUpdateManyWithoutUpdaterNestedInput
-  seoSettingsUpdates?: Prisma.SEOSettingsUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUpdateManyWithoutUpdaterNestedInput
-}
-
-export type UserUncheckedUpdateWithoutHeroSectionsUpdatedInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isSellerVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeOnboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
-  loginHistory?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput
-  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  siteSettingsUpdates?: Prisma.SiteSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  seoSettingsUpdates?: Prisma.SEOSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUncheckedUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedUpdateManyWithoutUpdaterNestedInput
-}
-
-export type UserCreateWithoutBannersUpdatedInput = {
-  id?: string
-  email: string
-  name: string
-  avatar?: string | null
-  password?: string | null
-  phone?: string | null
-  status?: $Enums.UserStatus
-  isEmailVerified?: boolean
-  isTwoFactorEnabled?: boolean
-  isSellerVerified?: boolean
-  blockedUntil?: Date | string | null
-  lastLoginAt?: Date | string | null
-  emailVerifiedAt?: Date | string | null
-  stripeCustomerId?: string | null
-  stripeOnboardingComplete?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
-  loginHistory?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput
-  notificationSettings?: Prisma.NotificationSettingsCreateNestedOneWithoutUserInput
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  siteSettingsUpdates?: Prisma.SiteSettingsCreateNestedManyWithoutUpdaterInput
-  seoSettingsUpdates?: Prisma.SEOSettingsCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialCreateNestedManyWithoutUpdaterInput
-}
-
-export type UserUncheckedCreateWithoutBannersUpdatedInput = {
-  id?: string
-  email: string
-  name: string
-  avatar?: string | null
-  password?: string | null
-  phone?: string | null
-  status?: $Enums.UserStatus
-  isEmailVerified?: boolean
-  isTwoFactorEnabled?: boolean
-  isSellerVerified?: boolean
-  blockedUntil?: Date | string | null
-  lastLoginAt?: Date | string | null
-  emailVerifiedAt?: Date | string | null
-  stripeCustomerId?: string | null
-  stripeOnboardingComplete?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
-  loginHistory?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput
-  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  siteSettingsUpdates?: Prisma.SiteSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  seoSettingsUpdates?: Prisma.SEOSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedCreateNestedManyWithoutUpdaterInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedCreateNestedManyWithoutUpdaterInput
-}
-
-export type UserCreateOrConnectWithoutBannersUpdatedInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutBannersUpdatedInput, Prisma.UserUncheckedCreateWithoutBannersUpdatedInput>
-}
-
-export type UserUpsertWithoutBannersUpdatedInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutBannersUpdatedInput, Prisma.UserUncheckedUpdateWithoutBannersUpdatedInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutBannersUpdatedInput, Prisma.UserUncheckedCreateWithoutBannersUpdatedInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutBannersUpdatedInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutBannersUpdatedInput, Prisma.UserUncheckedUpdateWithoutBannersUpdatedInput>
-}
-
-export type UserUpdateWithoutBannersUpdatedInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isSellerVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeOnboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
-  loginHistory?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput
-  notificationSettings?: Prisma.NotificationSettingsUpdateOneWithoutUserNestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  siteSettingsUpdates?: Prisma.SiteSettingsUpdateManyWithoutUpdaterNestedInput
-  seoSettingsUpdates?: Prisma.SEOSettingsUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUpdateManyWithoutUpdaterNestedInput
-}
-
-export type UserUncheckedUpdateWithoutBannersUpdatedInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isSellerVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeOnboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
-  loginHistory?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput
-  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  siteSettingsUpdates?: Prisma.SiteSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  seoSettingsUpdates?: Prisma.SEOSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedUpdateManyWithoutUpdaterNestedInput
-  testimonialsUpdated?: Prisma.TestimonialUncheckedUpdateManyWithoutUpdaterNestedInput
-}
-
-export type UserCreateWithoutTestimonialsUpdatedInput = {
-  id?: string
-  email: string
-  name: string
-  avatar?: string | null
-  password?: string | null
-  phone?: string | null
-  status?: $Enums.UserStatus
-  isEmailVerified?: boolean
-  isTwoFactorEnabled?: boolean
-  isSellerVerified?: boolean
-  blockedUntil?: Date | string | null
-  lastLoginAt?: Date | string | null
-  emailVerifiedAt?: Date | string | null
-  stripeCustomerId?: string | null
-  stripeOnboardingComplete?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
-  loginHistory?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput
-  notificationSettings?: Prisma.NotificationSettingsCreateNestedOneWithoutUserInput
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  siteSettingsUpdates?: Prisma.SiteSettingsCreateNestedManyWithoutUpdaterInput
-  seoSettingsUpdates?: Prisma.SEOSettingsCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerCreateNestedManyWithoutUpdaterInput
-}
-
-export type UserUncheckedCreateWithoutTestimonialsUpdatedInput = {
-  id?: string
-  email: string
-  name: string
-  avatar?: string | null
-  password?: string | null
-  phone?: string | null
-  status?: $Enums.UserStatus
-  isEmailVerified?: boolean
-  isTwoFactorEnabled?: boolean
-  isSellerVerified?: boolean
-  blockedUntil?: Date | string | null
-  lastLoginAt?: Date | string | null
-  emailVerifiedAt?: Date | string | null
-  stripeCustomerId?: string | null
-  stripeOnboardingComplete?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
-  loginHistory?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput
-  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  siteSettingsUpdates?: Prisma.SiteSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  seoSettingsUpdates?: Prisma.SEOSettingsUncheckedCreateNestedManyWithoutUpdaterInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedCreateNestedManyWithoutUpdaterInput
-  bannersUpdated?: Prisma.BannerUncheckedCreateNestedManyWithoutUpdaterInput
-}
-
-export type UserCreateOrConnectWithoutTestimonialsUpdatedInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutTestimonialsUpdatedInput, Prisma.UserUncheckedCreateWithoutTestimonialsUpdatedInput>
-}
-
-export type UserUpsertWithoutTestimonialsUpdatedInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutTestimonialsUpdatedInput, Prisma.UserUncheckedUpdateWithoutTestimonialsUpdatedInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutTestimonialsUpdatedInput, Prisma.UserUncheckedCreateWithoutTestimonialsUpdatedInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutTestimonialsUpdatedInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutTestimonialsUpdatedInput, Prisma.UserUncheckedUpdateWithoutTestimonialsUpdatedInput>
-}
-
-export type UserUpdateWithoutTestimonialsUpdatedInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isSellerVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeOnboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
-  loginHistory?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput
-  notificationSettings?: Prisma.NotificationSettingsUpdateOneWithoutUserNestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  siteSettingsUpdates?: Prisma.SiteSettingsUpdateManyWithoutUpdaterNestedInput
-  seoSettingsUpdates?: Prisma.SEOSettingsUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUpdateManyWithoutUpdaterNestedInput
-}
-
-export type UserUncheckedUpdateWithoutTestimonialsUpdatedInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isTwoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isSellerVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  blockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeOnboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
-  loginHistory?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput
-  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  siteSettingsUpdates?: Prisma.SiteSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  seoSettingsUpdates?: Prisma.SEOSettingsUncheckedUpdateManyWithoutUpdaterNestedInput
-  heroSectionsUpdated?: Prisma.HeroSectionUncheckedUpdateManyWithoutUpdaterNestedInput
-  bannersUpdated?: Prisma.BannerUncheckedUpdateManyWithoutUpdaterNestedInput
+  media?: Prisma.MediaUncheckedUpdateManyWithoutUploaderNestedInput
 }
 
 
@@ -2631,9 +2217,7 @@ export type UserCountOutputType = {
   auditLogs: number
   siteSettingsUpdates: number
   seoSettingsUpdates: number
-  heroSectionsUpdated: number
-  bannersUpdated: number
-  testimonialsUpdated: number
+  media: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2645,9 +2229,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
   siteSettingsUpdates?: boolean | UserCountOutputTypeCountSiteSettingsUpdatesArgs
   seoSettingsUpdates?: boolean | UserCountOutputTypeCountSeoSettingsUpdatesArgs
-  heroSectionsUpdated?: boolean | UserCountOutputTypeCountHeroSectionsUpdatedArgs
-  bannersUpdated?: boolean | UserCountOutputTypeCountBannersUpdatedArgs
-  testimonialsUpdated?: boolean | UserCountOutputTypeCountTestimonialsUpdatedArgs
+  media?: boolean | UserCountOutputTypeCountMediaArgs
 }
 
 /**
@@ -2719,22 +2301,8 @@ export type UserCountOutputTypeCountSeoSettingsUpdatesArgs<ExtArgs extends runti
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountHeroSectionsUpdatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.HeroSectionWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountBannersUpdatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.BannerWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountTestimonialsUpdatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TestimonialWhereInput
+export type UserCountOutputTypeCountMediaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MediaWhereInput
 }
 
 
@@ -2766,9 +2334,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   siteSettingsUpdates?: boolean | Prisma.User$siteSettingsUpdatesArgs<ExtArgs>
   seoSettingsUpdates?: boolean | Prisma.User$seoSettingsUpdatesArgs<ExtArgs>
-  heroSectionsUpdated?: boolean | Prisma.User$heroSectionsUpdatedArgs<ExtArgs>
-  bannersUpdated?: boolean | Prisma.User$bannersUpdatedArgs<ExtArgs>
-  testimonialsUpdated?: boolean | Prisma.User$testimonialsUpdatedArgs<ExtArgs>
+  media?: boolean | Prisma.User$mediaArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2846,9 +2412,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   siteSettingsUpdates?: boolean | Prisma.User$siteSettingsUpdatesArgs<ExtArgs>
   seoSettingsUpdates?: boolean | Prisma.User$seoSettingsUpdatesArgs<ExtArgs>
-  heroSectionsUpdated?: boolean | Prisma.User$heroSectionsUpdatedArgs<ExtArgs>
-  bannersUpdated?: boolean | Prisma.User$bannersUpdatedArgs<ExtArgs>
-  testimonialsUpdated?: boolean | Prisma.User$testimonialsUpdatedArgs<ExtArgs>
+  media?: boolean | Prisma.User$mediaArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2866,9 +2430,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
     siteSettingsUpdates: Prisma.$SiteSettingsPayload<ExtArgs>[]
     seoSettingsUpdates: Prisma.$SEOSettingsPayload<ExtArgs>[]
-    heroSectionsUpdated: Prisma.$HeroSectionPayload<ExtArgs>[]
-    bannersUpdated: Prisma.$BannerPayload<ExtArgs>[]
-    testimonialsUpdated: Prisma.$TestimonialPayload<ExtArgs>[]
+    media: Prisma.$MediaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3292,9 +2854,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   siteSettingsUpdates<T extends Prisma.User$siteSettingsUpdatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$siteSettingsUpdatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SiteSettingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   seoSettingsUpdates<T extends Prisma.User$seoSettingsUpdatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$seoSettingsUpdatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SEOSettingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  heroSectionsUpdated<T extends Prisma.User$heroSectionsUpdatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$heroSectionsUpdatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HeroSectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  bannersUpdated<T extends Prisma.User$bannersUpdatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bannersUpdatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BannerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  testimonialsUpdated<T extends Prisma.User$testimonialsUpdatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$testimonialsUpdatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestimonialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  media<T extends Prisma.User$mediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3941,75 +3501,27 @@ export type User$seoSettingsUpdatesArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * User.heroSectionsUpdated
+ * User.media
  */
-export type User$heroSectionsUpdatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$mediaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the HeroSection
+   * Select specific fields to fetch from the Media
    */
-  select?: Prisma.HeroSectionSelect<ExtArgs> | null
+  select?: Prisma.MediaSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the HeroSection
+   * Omit specific fields from the Media
    */
-  omit?: Prisma.HeroSectionOmit<ExtArgs> | null
+  omit?: Prisma.MediaOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.HeroSectionInclude<ExtArgs> | null
-  where?: Prisma.HeroSectionWhereInput
-  orderBy?: Prisma.HeroSectionOrderByWithRelationInput | Prisma.HeroSectionOrderByWithRelationInput[]
-  cursor?: Prisma.HeroSectionWhereUniqueInput
+  include?: Prisma.MediaInclude<ExtArgs> | null
+  where?: Prisma.MediaWhereInput
+  orderBy?: Prisma.MediaOrderByWithRelationInput | Prisma.MediaOrderByWithRelationInput[]
+  cursor?: Prisma.MediaWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.HeroSectionScalarFieldEnum | Prisma.HeroSectionScalarFieldEnum[]
-}
-
-/**
- * User.bannersUpdated
- */
-export type User$bannersUpdatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Banner
-   */
-  select?: Prisma.BannerSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Banner
-   */
-  omit?: Prisma.BannerOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.BannerInclude<ExtArgs> | null
-  where?: Prisma.BannerWhereInput
-  orderBy?: Prisma.BannerOrderByWithRelationInput | Prisma.BannerOrderByWithRelationInput[]
-  cursor?: Prisma.BannerWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.BannerScalarFieldEnum | Prisma.BannerScalarFieldEnum[]
-}
-
-/**
- * User.testimonialsUpdated
- */
-export type User$testimonialsUpdatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Testimonial
-   */
-  select?: Prisma.TestimonialSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Testimonial
-   */
-  omit?: Prisma.TestimonialOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TestimonialInclude<ExtArgs> | null
-  where?: Prisma.TestimonialWhereInput
-  orderBy?: Prisma.TestimonialOrderByWithRelationInput | Prisma.TestimonialOrderByWithRelationInput[]
-  cursor?: Prisma.TestimonialWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TestimonialScalarFieldEnum | Prisma.TestimonialScalarFieldEnum[]
+  distinct?: Prisma.MediaScalarFieldEnum | Prisma.MediaScalarFieldEnum[]
 }
 
 /**
