@@ -291,6 +291,32 @@ async function main() {
       },
     }),
 
+    // Category Permissions
+    prisma.permission.upsert({
+      where: { name: 'admin.category.view' },
+      update: {},
+      create: {
+        name: 'admin.category.view',
+        description: 'View categories in admin panel',
+      },
+    }),
+    prisma.permission.upsert({
+      where: { name: 'category.create' },
+      update: {},
+      create: {
+        name: 'category.create',
+        description: 'Create categories',
+      },
+    }),
+    prisma.permission.upsert({
+      where: { name: 'category.update' },
+      update: {},
+      create: {
+        name: 'category.update',
+        description: 'Update categories',
+      },
+    }),
+
     // Notification Permissions
     prisma.permission.upsert({
       where: { name: 'notification.create' },

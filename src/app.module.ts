@@ -18,6 +18,7 @@ import { AdminModule } from './admin/admin.module';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { CmsModule } from './cms/cms.module';
 import { NotificationModule } from './notification/notification.module';
+import { CategoryModule } from './category/category.module';
 import { BullModule } from '@nestjs/bullmq';
 import { redisConfig } from './config/redis.config';
 import { QUEUES } from './queues/queue.constants';
@@ -104,6 +105,7 @@ import { QUEUES } from './queues/queue.constants';
 
     CmsModule,
     NotificationModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [
