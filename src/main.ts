@@ -13,6 +13,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bufferLogs: false,
   });
+
   // Get config service
   const configService = app.get(ConfigService);
   const port = configService.get<number>('PORT', 8000);
@@ -21,7 +22,6 @@ async function bootstrap() {
     'CORS_ORIGIN',
     'http://localhost:3000',
   );
-
   // Use Pino logger
   app.useLogger(app.get(Logger));
 

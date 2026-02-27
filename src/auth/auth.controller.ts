@@ -196,7 +196,7 @@ export class AuthController {
       throw new UnauthorizedException('User not found');
     }
     await this.authService.socialLogin(req.user, 'GOOGLE', res, req);
-    res.redirect(`${APP_CLIENT_URL}/oauth-callback`);
+    res.redirect(`${APP_CLIENT_URL}/auth/oauth-callback`);
   }
 
   @Get('facebook')
@@ -213,6 +213,6 @@ export class AuthController {
       throw new UnauthorizedException('User not found');
     }
     await this.authService.socialLogin(req.user, 'FACEBOOK', res, req);
-    res.redirect(`${APP_CLIENT_URL}/oauth-callback`);
+    res.redirect(`${APP_CLIENT_URL}/auth/oauth-callback`);
   }
 }

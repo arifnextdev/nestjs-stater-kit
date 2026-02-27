@@ -5,15 +5,12 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
   constructor() {
-    if (!process.env.FACEBOOK_APP_ID || !process.env.FACEBOOK_APP_SECRET) {
-      throw new Error(
-        'FACEBOOK_APP_ID and FACEBOOK_APP_SECRET environment variables must be set',
-      );
-    }
     super({
-      clientID: process.env.FACEBOOK_APP_ID,
-      clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: 'http://localhost:8000/auth/facebook/callback',
+      clientID: process.env.FACEBOOK_APP_ID || '',
+      clientSecret: process.env.FACEBOOK_APP_SECRET || '',
+      callbackURL:
+        process.env.FACEBOOK_CALLBACK_URL ||
+        'http://localhost:8000/api/v1/auth/facebook/callback',
       profileFields: ['id', 'emails', 'name', 'photos'],
       scope: ['email'],
       passReqToCallback: true,
