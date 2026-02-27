@@ -5,21 +5,17 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppleStrategy extends PassportStrategy(Strategy, 'apple') {
   constructor() {
-    if (
-      !process.env.APPLE_CLIENT_ID ||
-      !process.env.APPLE_TEAM_ID ||
-      !process.env.APPLE_KEY_ID ||
-      !process.env.APPLE_PRIVATE_KEY
-    )
-      throw new Error(
-        'APPLE_CLIENT_ID, APPLE_TEAM_ID, APPLE_KEY_ID and APPLE_PRIVATE_KEY environment variables must be set',
-      );
     super({
-      clientID: process.env.APPLE_CLIENT_ID,
-      teamID: process.env.APPLE_TEAM_ID,
-      keyID: process.env.APPLE_KEY_ID,
-      privateKeyString: process.env.APPLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-      callbackURL: 'http://localhost:8000/auth/apple/callback',
+      clientID: process.env.APPLE_CLIENT_ID || '',
+      teamID: process.env.APPLE_TEAM_ID || '',
+      keyID: process.env.APPLE_KEY_ID || '',
+      privateKeyString: (process.env.APPLE_PRIVATE_KEY || '').replace(
+        /\\n/g,
+        '\n',
+      ),
+      callbackURL:
+        process.env.APPLE_CALLBACK_URL ||
+        'http://localhost:8000/api/v1/auth/apple/callback',
       scope: ['email', 'name'],
       passReqToCallback: true,
     });

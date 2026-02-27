@@ -9,6 +9,7 @@ import { JwtStrategy } from './strategy/jwt.strategy';
 import { JwtRefreshStrategy } from './strategy/jwt-refresh.strategy';
 import { GoogleStrategy } from './strategy/google.strategy';
 import { FacebookStrategy } from './strategy/facebook.strategy';
+import { AppleStrategy } from './strategy/apple.strategy';
 import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
@@ -40,6 +41,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
     JwtRefreshStrategy,
     GoogleStrategy,
     FacebookStrategy,
+    AppleStrategy,
   ],
   exports: [AuthService, JwtStrategy, JwtRefreshStrategy, JwtModule],
 })
